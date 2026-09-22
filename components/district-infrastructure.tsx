@@ -12,9 +12,12 @@ import {
   Map as MapIcon,
   Palette,
   Pill,
+  Recycle,
   School,
+  ShieldAlert,
   Trees,
   Users,
+  Zap,
 } from "lucide-react";
 import {
   getDistrictInfrastructure,
@@ -117,8 +120,8 @@ export function DistrictInfrastructure({
         </span>
       </div>
       {state === "loading" && (
-        <div className="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
-          {Array.from({ length: 11 }).map((_, i) => (
+        <div className="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-7">
+          {Array.from({ length: 14 }).map((_, i) => (
             <StatCardSkeleton key={i} />
           ))}
         </div>
@@ -134,7 +137,7 @@ export function DistrictInfrastructure({
       )}
       {amenities && (
         <>
-          <div className="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
+          <div className="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-7">
             <StatCard icon={Landmark} label="Cami" value={formatNumber(amenities.mosques)} />
             <StatCard icon={School} label="Anaokulu" value={formatNumber(amenities.preschools + amenities.kindergartens)} />
             <StatCard icon={School} label="İlkokul" value={formatNumber(amenities.primarySchools)} />
@@ -146,6 +149,9 @@ export function DistrictInfrastructure({
             <StatCard icon={Pill} label="Eczane" value={formatNumber(amenities.pharmacies)} />
             <StatCard icon={Trees} label="Park" value={formatNumber(amenities.parks)} />
             <StatCard icon={Building2} label="Spor tesisi" value={formatNumber(amenities.sportsFacilities)} />
+            <StatCard icon={Zap} label="Şarj İstasyonu" value={formatNumber(amenities.chargingStations ?? 0)} />
+            <StatCard icon={Recycle} label="Geri Dönüşüm" value={formatNumber(amenities.recycling ?? 0)} />
+            <StatCard icon={ShieldAlert} label="Toplanma Alanı" value={formatNumber(amenities.assemblyPoints ?? 0)} />
           </div>
         </>
       )}

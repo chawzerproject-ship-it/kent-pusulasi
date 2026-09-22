@@ -15,6 +15,9 @@ export type AmenityCounts = {
   pharmacies: number;
   parks: number;
   sportsFacilities: number;
+  chargingStations: number;
+  recycling: number;
+  assemblyPoints: number;
 };
 
 export type AttractionCategory = "muze" | "tarihi" | "gezilecek" | "manzara" | "sanat";
@@ -85,6 +88,9 @@ const COUNT_KEYS = [
   "universities",
   "parks",
   "sportsFacilities",
+  "chargingStations",
+  "recycling",
+  "assemblyPoints",
 ] as const;
 
 function buildQuery([south, north, west, east]: BoundingBox): string {
@@ -99,6 +105,9 @@ function buildQuery([south, north, west, east]: BoundingBox): string {
 (nwr["amenity"="university"](${bbox});); out count;
 (nwr["leisure"="park"](${bbox});); out count;
 (nwr["leisure"="sports_centre"](${bbox});); out count;
+(nwr["amenity"="charging_station"](${bbox});); out count;
+(nwr["amenity"="recycling"](${bbox});); out count;
+(nwr["emergency"="assembly_point"](${bbox});); out count;
 (nwr["amenity"="school"](${bbox});)->.schools;
 .schools out tags;
 (
@@ -195,7 +204,7 @@ function classifyAttraction(
   return null;
 }
 
-const CACHE_PREFIX = "kentpusula:overpass:";
+const CACHE_PREFIX = "kentpusula:overpass:v2:";
 const CACHE_TTL_MS = 1000 * 60 * 60 * 24 * 30; // 30 days, matches the server-side revalidate window used elsewhere in this app.
 
 function cacheKey(bbox: BoundingBox): string {
@@ -345,6 +354,9 @@ export async function getDistrictInfrastructure(
         pharmacies: counts.pharmacies,
         parks: counts.parks,
         sportsFacilities: counts.sportsFacilities,
+        chargingStations: counts.chargingStations,
+        recycling: counts.recycling,
+        assemblyPoints: counts.assemblyPoints,
       },
       attractions,
     };

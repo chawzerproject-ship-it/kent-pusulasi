@@ -19,6 +19,9 @@ import { Progress } from "@/components/ui/progress";
 import { DistrictMap } from "@/components/district-map";
 import { DistrictCharts } from "@/components/district-charts";
 import { DistrictInfrastructure } from "@/components/district-infrastructure";
+import { DistrictHeaderVisual } from "@/components/district-header-visual";
+import { DistrictEnvironment } from "@/components/district-environment";
+import { DistrictEarthquakes } from "@/components/district-earthquakes";
 import {
   getAllMunicipalities,
   getNationalAverages,
@@ -31,6 +34,9 @@ import {
   getVillagesByDistrict,
 } from "@/lib/turkiye-api";
 import { getDistrictLocation, resolveBoundingBox } from "@/lib/geocode";
+import { getDistrictWiki } from "@/lib/wikipedia";
+import { getDistrictEnvironment } from "@/lib/environment";
+import { getDistrictEarthquakes } from "@/lib/earthquakes";
 import { formatNumber } from "@/lib/utils";
 
 export async function generateMetadata(
@@ -87,10 +93,14 @@ export default async function IlcePage(props: PageProps<"/ilce/[id]">) {
   );
   const bbox = resolveBoundingBox(location);
 
-  const [neighborhoods, villages] = await Promise.all([
-    getNeighborhoodsByDistrict(districtId),
-    getVillagesByDistrict(districtId),
-  ]);
+  const [neighborhoods, villages, wiki, environment, earthquakes] =
+    await Promise.all([
+      getNeighborhoodsByDistrict(districtId),
+      getVillagesByDistrict(districtId),
+      getDistrictWiki(municipality.name, municipality.province),
+      getDistrictEnvironment(location.latitude, location.longitude),
+      getDistrictEarthquakes(location.latitude, location.longitude),
+    ]);
 
   const peers = getPeers(municipality, all, 3);
   const national = getNationalAverages(all);
@@ -123,8 +133,11 @@ export default async function IlcePage(props: PageProps<"/ilce/[id]">) {
 
   const sources = [
     { label: "TurkiyeAPI — nüfus, alan, mahalle/köy verisi", url: "https://turkiyeapi.dev" },
+    { label: "Vikipedi — ilçe fotoğrafı ve tanıtım özeti", url: "https://tr.wikipedia.org" },
+    { label: "Open-Meteo — hava kalitesi (AQI) ve meteoroloji verileri", url: "https://open-meteo.com" },
+    { label: "EMSC-CSEM — sismik hareketler ve deprem ağı", url: "https://www.seismicportal.eu" },
     { label: "OpenStreetMap — harita ve konum", url: "https://www.openstreetmap.org/copyright" },
-    { label: "OpenStreetMap Overpass — cami, okul (seviye kırılımıyla), kütüphane, hastane, eczane, park, spor tesisi sayıları ve müze/tarihi yer listesi", url: "https://www.openstreetmap.org/copyright" },
+    { label: "OpenStreetMap Overpass — cami, okul, kütüphane, hastane, şarj istasyonu, geri dönüşüm ve gezi noktaları", url: "https://www.openstreetmap.org/copyright" },
     ...(pilot?.sources ?? []),
   ];
 
@@ -158,6 +171,12 @@ export default async function IlcePage(props: PageProps<"/ilce/[id]">) {
         <SourceBadge sources={sources} />
       </div>
 
+      <DistrictHeaderVisual
+        wiki={wiki}
+        districtName={municipality.name}
+        provinceName={municipality.province}
+      />
+
       <div className="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
         <StatCard icon={Users} label="Nüfus" value={formatNumber(municipality.population)} />
         <StatCard icon={Ruler} label="Yüzölçümü" value={`${formatNumber(municipality.area)} km²`} />
@@ -170,7 +189,18 @@ export default async function IlcePage(props: PageProps<"/ilce/[id]">) {
         <DistrictMap districtName={municipality.name} location={location} />
       </div>
 
+      <DistrictEnvironment
+        data={environment}
+        districtName={municipality.name}
+      />
+
       <DistrictInfrastructure bbox={bbox} municipalityName={municipality.name} />
+
+      <DistrictEarthquakes
+        earthquakes={earthquakes}
+        districtName={municipality.name}
+        provinceName={municipality.province}
+      />
 
       <h2 className="mb-4 text-lg font-semibold text-navy-950">
         Karşılaştırmalı analiz
