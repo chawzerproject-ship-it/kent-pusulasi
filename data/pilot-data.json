@@ -1,0 +1,163 @@
+[
+  {
+    "districtId": 1725,
+    "budget2025": 433400000,
+    "perCapitaSpend": 7793,
+    "goals": [
+      { "label": "Tretuvar", "target": 6600, "actual": 5100, "unit": "m" },
+      { "label": "Bordür", "target": 5550, "actual": 3970, "unit": "m" },
+      { "label": "Kaçak yapı kontrolü", "target": 160, "actual": 37, "unit": "adet" },
+      { "label": "Çevre eğitimi", "target": 1800, "actual": 100, "unit": "kişi" },
+      { "label": "Bisiklet ve yürüyüş yolu", "target": 1000, "actual": 0, "unit": "m" }
+    ],
+    "weaknesses": [
+      { "title": "Makine parkı", "description": "İş makinesi filosu yaş ortalaması ve kapasitesi ihtiyacın gerisinde." },
+      { "title": "Otopark", "description": "Merkez mahallelerde araç başına düşen otopark alanı yetersiz." },
+      { "title": "Yeşil alan", "description": "Kişi başına yeşil alan hedefin altında; bakım kapasitesi sınırlı." },
+      { "title": "Saha kapasitesi", "description": "Denetim ve uygulama ekiplerinin saha başına düşen personel sayısı düşük." },
+      { "title": "Atık altyapısı", "description": "Ayrıştırma ve geri dönüşüm noktalarının mahalle geneline yayılımı eksik." },
+      { "title": "Hizmete erişim", "description": "Kırsal mahallelerde hizmet ulaşım süresi merkez mahallelere göre uzun." }
+    ],
+    "goodPractices": [
+      { "title": "13 bin m² hayvan bakımevi", "description": "Sokak hayvanları için modern barınma ve rehabilitasyon tesisi.", "sourceNote": "Yenişehir Belediyesi 2025 Faaliyet Raporu" }
+    ],
+    "sources": [
+      { "label": "Yenişehir Belediyesi — Faaliyet Raporları", "url": "https://bursa-yenisehir.bel.tr/kurumsal/faaliyet-raporlari" },
+      { "label": "Sayıştay — Bursa Yenişehir Belediyesi Denetim Raporu (2023)", "url": "https://www.sayistay.gov.tr/reports/NaQ5KjKoqB-bursa-yenisehir-belediyesi" }
+    ],
+    "faaliyetRaporlari": [
+      { "year": 2025, "url": "https://bursa-yenisehir.bel.tr/kurumsal/faaliyet-raporlari" }
+    ]
+  },
+  {
+    "districtId": 1420,
+    "budget2025": 483400000,
+    "perCapitaSpend": 10622,
+    "goals": [
+      { "label": "Hasta nakil hizmeti", "target": 5000, "actual": 5000, "unit": "hasta" }
+    ],
+    "weaknesses": [
+      { "title": "Makine parkı", "description": "Kırsal mahalle sayısının fazlalığı ekipman ihtiyacını artırıyor." },
+      { "title": "Otopark", "description": "Tarihi merkezde otopark alanı fiziksel olarak sınırlı." },
+      { "title": "Yeşil alan", "description": "Göl kıyısı dışındaki mahallelerde yeşil alan erişimi düşük." },
+      { "title": "Saha kapasitesi", "description": "Geniş kırsal alan nedeniyle saha ekiplerinin ulaşım süresi uzun." },
+      { "title": "Atık altyapısı", "description": "Kırsal mahallelerde katı atık toplama sıklığı merkez kadar yüksek değil." },
+      { "title": "Hizmete erişim", "description": "Dağınık yerleşim, hizmet maliyetini ve süresini artırıyor." }
+    ],
+    "goodPractices": [
+      { "title": "2025'te 5 bin hasta nakil hizmeti", "description": "Sağlık kuruluşlarına ulaşımda zorlanan vatandaşlar için ücretsiz nakil hizmeti.", "sourceNote": "İznik Belediyesi 2025 Faaliyet Raporu" }
+    ],
+    "sources": [
+      { "label": "İznik Belediyesi — Faaliyet Raporları", "url": "https://iznik.bel.tr/tr/faaliyet-raporlari" },
+      { "label": "Sayıştay — Bursa İznik Belediyesi Denetim Raporu (2021)", "url": "https://www.sayistay.gov.tr/reports/4236-bursa-iznik-belediyesi" }
+    ],
+    "faaliyetRaporlari": [
+      { "year": 2023, "url": "https://iznik.bel.tr/tr/faaliyet-raporlari/2023-faaliyet-raporu-18" },
+      { "year": 2024, "url": "https://iznik.bel.tr/tr/faaliyet-raporlari/2024-faaliyet-raporu-19" },
+      { "year": 2025, "url": "https://iznik.bel.tr/tr/faaliyet-raporlari/2025-faaliyet-raporu-20" }
+    ]
+  },
+  {
+    "districtId": 1960,
+    "budget2025": 410000000,
+    "perCapitaSpend": 5300,
+    "goals": [],
+    "weaknesses": [
+      { "title": "Makine parkı", "description": "Ağır iş makinesi kiralama oranı öz kaynaklı filoya göre yüksek." },
+      { "title": "Otopark", "description": "Sanayi bölgesine yakın mahallelerde araç yoğunluğu otoparkı zorluyor." },
+      { "title": "Yeşil alan", "description": "Yeni yerleşim alanlarında yeşil alan planlaması geriden geliyor." },
+      { "title": "Saha kapasitesi", "description": "Denetim ekibi sayısı büyüyen nüfusa oranla sınırlı." },
+      { "title": "Atık altyapısı", "description": "Geri dönüşüm noktası yoğunluğu hedefin altında." },
+      { "title": "Hizmete erişim", "description": "Bazı mahallelerde hizmet başvuru süreçleri dijitalleşmemiş." }
+    ],
+    "goodPractices": [
+      { "title": "Uydu tabanlı yapay zekâ ile kaçak yapı tespiti", "description": "Uydu görüntüleri ve yapay zekâ modelleriyle kaçak yapılaşmanın erken tespiti.", "sourceNote": "Kestel Belediyesi Faaliyet Raporu" }
+    ],
+    "sources": [
+      { "label": "Kestel Belediyesi — Faaliyet Raporları", "url": "https://www.kestel.bel.tr/faaliyet-raporlari" },
+      { "label": "Sayıştay — Bursa Kestel Belediyesi Denetim Raporu (2018)", "url": "https://www.sayistay.gov.tr/reports/2967-bursa-kestel-belediyesi" }
+    ],
+    "faaliyetRaporlari": [
+      { "year": 2010, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2010-yili-faaliyet-raporu/2" },
+      { "year": 2011, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2011-yili-faaliyet-raporu/3" },
+      { "year": 2012, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2012-yili-faaliyet-raporu/4" },
+      { "year": 2013, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2013-yili-faaliyet-raporu/5" },
+      { "year": 2014, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2014-yili-faaliyet-raporu/6" },
+      { "year": 2015, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2015-yili-faaliyet-raporu/7" },
+      { "year": 2016, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2016-yili-faaliyet-raporu/9" },
+      { "year": 2017, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2017-yili-faaliyet-raporu/10" },
+      { "year": 2018, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2018-yili-faaliyet-raporu/11" },
+      { "year": 2019, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2019-yili-faaliyet-raporu/12" },
+      { "year": 2020, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2020-yili-faaliyet-raporu/14" },
+      { "year": 2021, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2021-yili-faaliyet-raporu/15" },
+      { "year": 2022, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2022-yili-faaliyet-raporu/20" },
+      { "year": 2023, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2023-yili-faaliyet-raporu/21" },
+      { "year": 2024, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2024-yili-faaliyet-raporu/22" },
+      { "year": 2025, "url": "https://www.kestel.bel.tr/faaliyet-raporlari/2025-yili-faaliyet-raporu/23" }
+    ]
+  },
+  {
+    "districtId": 1554,
+    "budget2025": 589000000,
+    "perCapitaSpend": 7183,
+    "goals": [],
+    "weaknesses": [
+      { "title": "Makine parkı", "description": "Sanayi ve tarım bölgelerinde eş zamanlı talep filo kapasitesini zorluyor." },
+      { "title": "Otopark", "description": "Merkez çarşı çevresinde otopark yetersizliği sürüyor." },
+      { "title": "Yeşil alan", "description": "Sanayi alanlarına yakın mahallelerde yeşil alan oranı düşük." },
+      { "title": "Saha kapasitesi", "description": "Geniş hizmet alanı nedeniyle saha ekiplerinin günlük kapasitesi zorlanıyor." },
+      { "title": "Atık altyapısı", "description": "Sanayi atığı ile evsel atık ayrıştırma altyapısı geliştirilmeli." },
+      { "title": "Hizmete erişim", "description": "Kırsal mahallelerde hizmet başvuru noktaları sınırlı." }
+    ],
+    "goodPractices": [
+      { "title": "BüyükAile ile hizmeti mahalleye taşıma", "description": "Mobil ekiplerle belediye hizmetlerinin doğrudan mahallelere ulaştırılması.", "sourceNote": "Orhangazi Belediyesi Faaliyet Raporu" }
+    ],
+    "sources": [
+      { "label": "Orhangazi Belediyesi — Faaliyet Raporları", "url": "https://orhangazi.bel.tr/faaliyet-raporlari" },
+      { "label": "Sayıştay — Bursa Orhangazi Belediyesi Denetim Raporu (2020)", "url": "https://sayistay.gov.tr/reports/3814-bursa-orhangazi-belediyesi" }
+    ],
+    "faaliyetRaporlari": [
+      { "year": 2016, "url": "https://orhangazi.bel.tr/faaliyet-raporlari/2016-faaliyet-raporu/5" },
+      { "year": 2017, "url": "https://orhangazi.bel.tr/faaliyet-raporlari/2017-faaliyet-raporu/6" },
+      { "year": 2018, "url": "https://orhangazi.bel.tr/faaliyet-raporlari/2018-faaliyet-raporu/7" },
+      { "year": 2019, "url": "https://orhangazi.bel.tr/faaliyet-raporlari/2019-faaliyet-raporu/8" },
+      { "year": 2020, "url": "https://orhangazi.bel.tr/faaliyet-raporlari/2020-faaliyet-raporu/9" },
+      { "year": 2021, "url": "https://orhangazi.bel.tr/faaliyet-raporlari/2021-faaliyet-raporu/10" },
+      { "year": 2022, "url": "https://orhangazi.bel.tr/faaliyet-raporlari/2022-faaliyet-raporu/11" },
+      { "year": 2023, "url": "https://orhangazi.bel.tr/faaliyet-raporlari/2023-faaliyet-raporu/12" },
+      { "year": 2024, "url": "https://orhangazi.bel.tr/faaliyet-raporlari/2024-faaliyet-raporu/13" },
+      { "year": 2025, "url": "https://orhangazi.bel.tr/faaliyet-raporlari/2025-yili-faaliyet-raporu/14" }
+    ]
+  },
+  {
+    "districtId": 1434,
+    "budget2025": 612000000,
+    "perCapitaSpend": 7071,
+    "goals": [],
+    "weaknesses": [
+      { "title": "Makine parkı", "description": "Tarım arazilerinin genişliği araç ve makine ihtiyacını artırıyor." },
+      { "title": "Otopark", "description": "Yeni konut alanlarında otopark planlaması geriden geliyor." },
+      { "title": "Yeşil alan", "description": "Kırsal mahallelerde yeşil alan erişimi merkeze göre düşük." },
+      { "title": "Saha kapasitesi", "description": "Geniş yüzölçümü nedeniyle saha müdahale süresi uzuyor." },
+      { "title": "Atık altyapısı", "description": "Tarımsal atık yönetimi için ek altyapı ihtiyacı var." },
+      { "title": "Hizmete erişim", "description": "Uzak mahallelerde hizmet başvuru ve geri bildirim süresi uzun." }
+    ],
+    "goodPractices": [
+      { "title": "147. Sokak'ta çocuk dostu dönüşüm", "description": "Bir sokağın tamamının çocuk dostu tasarım ilkeleriyle yeniden düzenlenmesi.", "sourceNote": "Karacabey Belediyesi Faaliyet Raporu" },
+      { "title": "3.700 m² otopark ve çocuk alanı", "description": "Atıl bir alanın otopark ve çocuk oyun alanına dönüştürülmesi.", "sourceNote": "Karacabey Belediyesi Faaliyet Raporu" }
+    ],
+    "sources": [
+      { "label": "Karacabey Belediyesi — Faaliyet Raporları", "url": "https://karacabey.bel.tr/faaliyetler?kategori=faaliyet-raporlari" },
+      { "label": "Sayıştay — Bursa Karacabey Belediyesi Denetim Raporu (2024)", "url": "https://www.sayistay.gov.tr/reports/9XQWO6AQpN-bursa-karacabey-belediyesi" }
+    ],
+    "faaliyetRaporlari": [
+      { "year": 2019, "url": "https://www.karacabey.bel.tr/storage/8222/2019-yili-faaliyet-raporupdf_11684b9dfe3161b007eb35b1b521d5d8.pdf" },
+      { "year": 2020, "url": "https://www.karacabey.bel.tr/storage/8224/2020-faaliyet-raporupdf_9450988809f2da3e8a48f0c72cfad482.pdf" },
+      { "year": 2021, "url": "https://www.karacabey.bel.tr/storage/8226/2021-mali-yili-faaliyet-raporu-compressed-1pdf_c5c70dff49206fbe3b310d5b4488948f.pdf" },
+      { "year": 2022, "url": "https://www.karacabey.bel.tr/storage/8228/2022-faaliyet-raporupdf_043c48fedcdecf5b765304a816fd6051.pdf" },
+      { "year": 2023, "url": "https://www.karacabey.bel.tr/storage/8236/2023-yili-faaliyet-raporusonpdf_d89a89de3b67fd94e884d7af6f4c7137.pdf" },
+      { "year": 2024, "url": "https://www.karacabey.bel.tr/storage/9895/kbey-belediyesi-2024-faaliyet-raporupdf_4ee810476dd4e885e9378ecc7a81535a.pdf" },
+      { "year": 2025, "url": "https://www.karacabey.bel.tr/storage/11563/2025-faaliyet-raporupdf_f8faf71fcb573c99b30793c9a0ea983a.pdf" }
+    ]
+  }
+]
