@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KentPusulası — Proje Sunumu</title>
+  <style>
+    :root {
+      --bg: #0B192C;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --accent: #F97316;
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --teal: #14B8A6;
+      --blue: #38BDF8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); overflow: hidden; height: 100vh; width: 100vw; user-select: none; }
+    #progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 5px; background: rgba(255,255,255,0.1); z-index: 100; }
+    #progress-bar { height: 100%; width: 12.5%; background: linear-gradient(90deg, #F97316, #FB923C); transition: width 0.3s ease; }
+    header { position: fixed; top: 5px; left: 0; right: 0; height: 60px; display: flex; justify-content: space-between; align-items: center; padding: 0 40px; z-index: 50; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.25rem; }
+    .brand-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; }
+    .slide-counter { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 20px; border: 1px solid var(--card-border); }
+    .slider { position: relative; height: 100vh; width: 100vw; }
+    .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 80px 100px; opacity: 0; transform: translateX(40px); transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; visibility: hidden; }
+    .slide.active { opacity: 1; transform: translateX(0); pointer-events: auto; visibility: visible; }
+    .slide-content { max-width: 1050px; width: 100%; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; background: rgba(249,115,22,0.15); color: var(--accent); border: 1px solid rgba(249,115,22,0.3); margin-bottom: 20px; }
+    h1 { font-size: 3.6rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+    h2 { font-size: 2.6rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
+    p.lead { font-size: 1.3rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 36px; max-width: 800px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 28px; transition: transform 0.3s ease, border-color 0.3s ease; }
+    .card:hover { transform: translateY(-4px); border-color: rgba(249,115,22,0.5); }
+    .card-icon { width: 48px; height: 48px; border-radius: 14px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px; }
+    .card h3 { font-size: 1.25rem; margin-bottom: 12px; color: white; }
+    .card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; }
+    .stat-number { font-size: 2.6rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    #notes-box { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 850px; background: rgba(15,23,42,0.96); backdrop-filter: blur(12px); border: 1px solid var(--accent); border-radius: 16px; padding: 18px 24px; z-index: 90; display: none; }
+    #notes-box.active { display: block; }
+    .notes-title { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: flex; justify-content: space-between; }
+    .notes-text { font-size: 1.05rem; line-height: 1.5; color: #E2E8F0; }
+    footer { position: fixed; bottom: 0; left: 0; right: 0; height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 40px; background: linear-gradient(0deg, rgba(11,25,44,0.95) 0%, transparent 100%); z-index: 50; }
+    .controls-hint { font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 16px; }
+    kbd { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 3px 8px; font-size: 0.75rem; color: white; }
+    .btn-group { display: flex; gap: 10px; }
+    button { background: rgba(255,255,255,0.08); border: 1px solid var(--card-border); color: white; padding: 10px 18px; border-radius: 12px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+    button:hover { background: rgba(255,255,255,0.18); border-color: white; }
+    button.primary { background: var(--accent); border-color: var(--accent); }
+    button.primary:hover { background: #EA580C; }
+    .cta-link { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: white; text-decoration: none; padding: 16px 32px; border-radius: 50px; font-size: 1.1rem; font-weight: 700; margin-top: 24px; transition: transform 0.2s, background-color 0.2s; }
+    .cta-link:hover { transform: scale(1.05); background: #EA580C; }
+    .pill { display: inline-block; padding: 6px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; background: rgba(255,255,255,0.08); color: var(--blue); margin: 0 6px; }
+  </style>
+</head>
+<body>
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <header>
+    <div class="brand"><div class="brand-icon">🧭</div><span>KentPusula</span></div>
+    <div class="slide-counter" id="counter">Slayt 1 / 8</div>
+  </header>
+
+  <div class="slider">
+    <!-- SLIDE 1 -->
+    <div class="slide active" data-notes="Konuşma: Değerli konuklar merhaba. Bugün sizlere belediyelerin birbirinin tecrübelerinden öğrenmesini sağlayan, açık ve canlı veriye dayalı kıyaslama platformumuz KentPusula'yı tanıtacağım.">
+      <div class="slide-content" style="text-align: center;">
+        <span class="badge">🚀 Veriye Dayalı Şehirler</span>
+        <h1>KENTPUSULA</h1>
+        <p class="lead" style="margin: 0 auto 24px auto; font-size: 1.6rem; color: #E2E8F0; font-weight: 600;">
+          "Belediyeler birbirinden öğrenirse şehirler hızlanır."
+        </p>
+        <p class="lead" style="margin: 0 auto; font-size: 1.15rem;">
+          81 İl ve 973 İlçeyi adil emsallerle kıyaslayan, iyi uygulamaları görünür kılan ve canlı açık veriyi karar desteğine dönüştüren yeni nesil platform.
+        </p>
+        <div style="margin-top: 36px;">
+          <span class="pill">81 İl • 973 İlçe</span>
+          <span class="pill" style="color: var(--teal);">Canlı Açık Veri</span>
+          <span class="pill" style="color: var(--accent);">Karar Desteği</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide" data-notes="Konuşma: Bugün Türkiye'de belediyeler devasa bütçeler yönetiyor. Ancak bu bütçelerin ve hizmetlerin sonuçları PDF'lerde ve farklı web sitelerinde dağınık. Bir ilçe başkanı ya da vatandaş, kendi ilçesinin durumunu benzer şartlardaki komşu bir ilçeyle adil biçimde karşılaştıramıyor.">
+      <div class="slide-content">
+        <span class="badge">Problem Tanımı</span>
+        <h2>Bilgi Var; Fakat Karşılaştırılamıyor</h2>
+        <p class="lead">Milyarlarca liralık kamu bütçesi ve hizmeti mevcut, ancak şeffaf bir kıyaslama zemini eksik.</p>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-icon">📄</div>
+            <h3>PDF Labirentleri</h3>
+            <p>Faaliyet raporları ve bütçe sonuçları her belediyenin kendi sitesinde, yüzlerce sayfalık taranmış PDF'ler halinde saklı kalıyor.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚖️</div>
+            <h3>Adil Olmayan Kıyas</h3>
+            <p>50 bin nüfuslu bir Anadolu ilçesi ile 1 milyonluk bir metropol aynı kefeye konulamaz. Emsal ve ölçek bazlı filtreleme yok.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔄</div>
+            <h3>Tekrarlanan Hatalar</h3>
+            <p>Bir belediyenin yıllar önce çözdüğü bir sorunu, başka bir belediye sıfırdan ve yüksek maliyetlerle yeniden çözmeye çalışıyor.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide" data-notes="Konuşma: KentPusula bu karmaşayı 3 temel ilkeyle çözer: Görür, Kıyaslar ve Öğrenir. Amacımız belediyeleri yarıştırmak ya da puanlamak değil; benzer koşullarda neyin mümkün olduğunu görünür kılmaktır.">
+      <div class="slide-content">
+        <span class="badge">Modelimiz</span>
+        <h2>KentPusula 3 İşi Aynı Yerde Yapar</h2>
+        <p class="lead">Amacımız belediyeleri yarıştırmak değil; benzer şartlarda neyin mümkün olduğunu göstermek.</p>
+        <div class="grid-3">
+          <div class="card" style="border-color: rgba(249,115,22,0.4);">
+            <div class="card-icon" style="color: var(--accent);">👁️</div>
+            <h3 style="color: var(--accent);">1. GÖRÜR</h3>
+            <p>Nüfus, bütçe, okul, hastane, yeşil alan ve faaliyet sonuçlarını <strong>tek bir dijital belediye profilinde</strong> anlık toplar.</p>
+          </div>
+          <div class="card" style="border-color: rgba(56,189,248,0.4);">
+            <div class="card-icon" style="color: var(--blue);">⚖️</div>
+            <h3 style="color: var(--blue);">2. KIYASLAR</h3>
+            <p>Yalnızca benzer nüfus, yüzölçümü ve coğrafi şartlardaki <strong>emsal (peer) belediyeleri</strong> adil bir biçimde karşılaştırır.</p>
+          </div>
+          <div class="card" style="border-color: rgba(20,184,166,0.4);">
+            <div class="card-icon" style="color: var(--teal);">💡</div>
+            <h3 style="color: var(--teal);">3. ÖĞRENİR</h3>
+            <p>Başarılı bir iyi uygulamanın maliyetini, insan kaynağını ve <strong>başka bir şehre nasıl taşınabileceğini</strong> modelleyerek sunar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="slide" data-notes="Konuşma: En güçlü yönümüz: KentPusula statik bir veri tabanı değildir. Tamamen ücretsiz, açık ve gerçek zamanlı API'lerden beslenir. Vikipedi fotoğraflarından OpenStreetMap altyapısına, Avrupa hava kalitesinden uluslararası deprem verilerine kadar her ilçe anlık olarak canlıdır.">
+      <div class="slide-content">
+        <span class="badge">Teknoloji & Veri Gücü</span>
+        <h2>Canlı Açık Veri Ekosistemi</h2>
+        <p class="lead">Türkiye'nin 973 ilçesinin tamamı için gerçek zamanlı, tarafsız ve açık kaynaklı API entegrasyonları.</p>
+        <div class="grid-4">
+          <div class="card">
+            <div class="stat-number">973</div>
+            <h3>TurkiyeAPI</h3>
+            <p>81 il ve 973 ilçenin nüfus, yüzölçümü, mahalle ve köy sayımı.</p>
+          </div>
+          <div class="card">
+            <div class="stat-number" style="color: var(--teal);">OSM</div>
+            <h3>OpenStreetMap</h3>
+            <p>Cami, okul, hastane, eczane, park ve şarj istasyonu sayımları.</p>
+          </div>
+          <div class="card">
+            <div class="stat-number" style="color: var(--blue);">AQI</div>
+            <h3>Open-Meteo</h3>
+            <p>Canlı Avrupa Hava Kalitesi İndeksi, PM2.5 / PM10 ve meteoroloji.</p>
+          </div>
+          <div class="card">
+            <div class="stat-number" style="color: #A855F7;">EMSC</div>
+            <h3>Sismik Ağ</h3>
+            <p>İlçenin 120 km çevresindeki son deprem ve afet hareketliliği.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 -->
+    <div class="slide" data-notes="Konuşma: KentPusulası aynı zamanda geleceğin akıllı ve sürdürülebilir şehirleri için bir ayna görevi görür. Elektrikli araç şarj istasyonlarından geri dönüşüm noktalarına ve acil toplanma alanlarına kadar modern belediyecilik göstergelerini görünür kılıyoruz.">
+      <div class="slide-content">
+        <span class="badge">Sürdürülebilirlik</span>
+        <h2>Akıllı Şehir & Çevre Göstergeleri</h2>
+        <p class="lead">İlçeler sadece geçmiş bütçeleriyle değil, geleceğe hazırlıklarıyla da ölçülür.</p>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3>EV Şarj Altyapısı</h3>
+            <p>İlçedeki elektrikli araç şarj istasyonlarının dağılımı. Yeşil ulaşıma hazır olma derecesini yansıtır.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">♻️</div>
+            <h3>Geri Dönüşüm Noktaları</h3>
+            <p>Sıfır atık yaklaşımı ve geri dönüşüm konteynerlerinin ilçedeki erişilebilirlik düzeyi.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🛡️</div>
+            <h3>Afet Toplanma Alanları</h3>
+            <p>Olası afet durumlarında halkın toplanabileceği güvenli alanların sayısı ve harita konumu.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 -->
+    <div class="slide" data-notes="Konuşma: Bu platform kime ne kazandırıyor? Belediye başkanlarına ve daire başkanlarına karar desteği veriyor. Vatandaşlara şeffaf hesap verebilirlik sunuyor. Ve şehir plancılarına Türkiye ölçeğinde standart veri sağlıyor.">
+      <div class="slide-content">
+        <span class="badge">Değer Önerisi</span>
+        <h2>Kimler İçin, Hangi Faydayı Sağlar?</h2>
+        <p class="lead">Kamuda veri odaklı ortak aklı ve iş birliğini inşa ediyoruz.</p>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-icon">🏛️</div>
+            <h3>Belediye Yönetimleri</h3>
+            <p><strong>Karar Desteği:</strong> Benzer bütçeli bir ilçe aynı bütçeyle hangi projeleri başardı? Parayı nereye harcarsak daha verimli olur?</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">👥</div>
+            <h3>Vatandaşlar</h3>
+            <p><strong>Şeffaflık & Katılım:</strong> Yaşadığı şehrin olanaklarını, yeşil alanlarını, hava kalitesini bilir; ezbere değil veriye dayalı talepte bulunur.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📈</div>
+            <h3>Bakanlık & Birlikler</h3>
+            <p><strong>Standart İzleme:</strong> Türkiye Belediyeler Birliği veya kalkınma ajansları için tüm belediyelerin standart emsal matrisi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7 -->
+    <div class="slide" data-notes="Konuşma: Önümüzdeki süreçte hedefimiz, pilot belediyelerle faaliyet raporlarının yapay zeka ile otomatik taranmasını sağlamak ve vatandaş öneri sistemini doğrudan bütçe süreçlerine bağlamaktır.">
+      <div class="slide-content">
+        <span class="badge">Yol Haritası</span>
+        <h2>Gelecek Vizyonu</h2>
+        <p class="lead">Statik bir analizden, interaktif ve katılımcı bir şehir yönetişim ekosistemine.</p>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-icon">🤖</div>
+            <h3>Yapay Zeka Rapor Analizi</h3>
+            <p>Belediye faaliyet raporlarındaki yüzlerce sayfalık tabloların otomatik taranıp KPI'lara dönüştürülmesi.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🗳️</div>
+            <h3>Vatandaş Öneri Sistemi</h3>
+            <p>Vatandaşların sorun bildirmek yerine, komşu ilçelerde tutmuş başarılı projeleri kendi belediyesine önerebilmesi.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🌱</div>
+            <h3>Yeşil Şehir Endeksi</h3>
+            <p>Hava kalitesi, kişi başına yeşil alan ve yenilenebilir enerji potansiyeli üzerinden ilçelere çevreci karne verilmesi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8 -->
+    <div class="slide" data-notes="Konuşma: Teşekkür ederim. Platformumuz şu anda tamamen canlıda ve ücretsiz olarak hizmet vermektedir. Şimdi isterseniz canlı web sitemizi birlikte gezip birkaç ilçeyi birlikte keşfedelim.">
+      <div class="slide-content" style="text-align: center;">
+        <span class="badge" style="background: rgba(20,184,166,0.2); color: var(--teal); border-color: var(--teal);">🌟 Canlı Yayında</span>
+        <h1 style="font-size: 3.2rem;">Şehirleri Veriyle Dönüştürmeye Hazırız</h1>
+        <p class="lead" style="margin: 0 auto 24px auto; font-size: 1.3rem;">
+          KentPusulası şu anda tüm Türkiye ilçeleri için yayında ve aktif.
+        </p>
+        <div style="margin: 20px 0;">
+          <a href="https://kent-pusulasi.vercel.app/" target="_blank" class="cta-link">
+            <span>🌐 Canlı Platformu Aç (kent-pusulasi.vercel.app)</span>
+            <span>→</span>
+          </a>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 24px;">
+          Dinlediğiniz için teşekkür ederiz. Sorularınızı yanıtlamaktan memnuniyet duyarım.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="notes-box">
+    <div class="notes-title"><span>🎤 Konuşmacı Notu (Ne Söylemelisiniz?)</span><span style="font-size: 0.75rem; color: #94A3B8;">Kapatmak için 'N' tuşuna basın</span></div>
+    <div class="notes-text" id="notes-content"></div>
+  </div>
+
+  <footer>
+    <div class="controls-hint">
+      <span>İlerle: <kbd>→</kbd> veya <kbd>Boşluk</kbd></span>
+      <span>Geri: <kbd>←</kbd></span>
+      <span>Notlar: <kbd>N</kbd></span>
+      <span>Tam Ekran: <kbd>F11</kbd></span>
+    </div>
+    <div class="btn-group">
+      <button id="btn-notes" onclick="toggleNotes()">🎤 Notları Aç (N)</button>
+      <button onclick="prevSlide()">← Önceki</button>
+      <button class="primary" onclick="nextSlide()">Sonraki →</button>
+    </div>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('counter');
+    const progressBar = document.getElementById('progress-bar');
+    const notesBox = document.getElementById('notes-box');
+    const notesContent = document.getElementById('notes-content');
+    const btnNotes = document.getElementById('btn-notes');
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    function updateSlide(index) {
+      slides.forEach((s, i) => s.classList.toggle('active', i === index));
+      counter.innerText = `Slayt ${index + 1} / ${totalSlides}`;
+      progressBar.style.width = `${((index + 1) / totalSlides) * 100}%`;
+      notesContent.innerText = slides[index].getAttribute('data-notes') || 'Bu slayt için özel not girilmedi.';
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) { currentSlide++; updateSlide(currentSlide); }
+    }
+    function prevSlide() {
+      if (currentSlide > 0) { currentSlide--; updateSlide(currentSlide); }
+    }
+    function toggleNotes() {
+      notesBox.classList.toggle('active');
+      btnNotes.innerText = notesBox.classList.contains('active') ? '❌ Notları Gizle (N)' : '🎤 Notları Aç (N)';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') nextSlide();
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+      else if (e.key.toLowerCase() === 'n') toggleNotes();
+    });
+
+    updateSlide(0);
+  </script>
+</body>
+</html>
